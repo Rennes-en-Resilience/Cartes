@@ -47,7 +47,6 @@
 </head>
 <body>
 
-<!-- TODO add global navbar: with direct links to all the h1, h2 of the page ! -->
 <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary" style="">
     <div class="container">
         <a href="#intro" class="navbar-brand">Rennes en Résilience</a>
@@ -57,13 +56,14 @@
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="themes" aria-expanded="false">Thème ?<span class="caret"></span></a>
                 <div class="dropdown-menu" aria-labelledby="themes">
                     <a class="dropdown-item" href="?theme=day">Défaut</a>
-                    <!-- <div class="dropdown-divider"></div> -->
                     <a class="dropdown-item" href="?theme=night">Nuit</a>
-                    <!-- TODO use a button instead! -->
                 </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../">Accueil du site web (..)</a>
+                    <a class="nav-link" href="../">Accueil du site</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="carte.html">Autres cartes</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="https://RennesenResilience.WordPress.com/">Blog</a>
@@ -170,7 +170,7 @@
             var center = [lat, long];
             var center_unzoomed = center;
 
-            var whole_france = L.map("whole_france").setView(center_unzoomed, 7); // XXX 13 is zoom level
+            var whole_france = L.map("whole_france").setView(center_unzoomed, 6); // XXX 13 is zoom level
             /*
             L.tileLayer("https://{s}.tile.osm.org/{z}/{x}/{y}.png", {
                 attribution: "&copy; Lilian Besson for shops data etc, &copy; <a target="_blank" href='https://osm.org/copyright'>OpenStreetMap</a> contributors for the rest"
@@ -252,6 +252,12 @@
                 iconAnchor:   [16, 16],
             }
         });
+        var verySmallIcon = OfficeIcon.extend({
+            options: {
+                iconSize:     [16, 16],
+                iconAnchor:   [8, 8],
+            }
+        });
         var smallIcon_rectangle = OfficeIcon.extend({
             options: {
                 iconSize:     [32, 16],
@@ -265,7 +271,8 @@
         console.log("OK 5.1");
         var justSmallIcon = new smallIcon();
         console.log("OK 5.2");
-        var rebelSmallIcon = new smallIcon({iconUrl: "css/Logo_ReR.png"});
+        // var rebelSmallIcon = new smallIcon({iconUrl: "css/Logo_ReR.png"});
+        var rebelSmallIcon = new verySmallIcon({iconUrl: "css/Logo_ReR.png"});
         console.log("OK 5.3");
 
         // DONE add a nice icon to my offices, with image as the logo of the building
