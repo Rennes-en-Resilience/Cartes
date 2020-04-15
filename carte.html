@@ -332,11 +332,14 @@
                 createCircle(neighborhood, center,  100, 0.075, 'rgb(255, 225, 0)');
                 createCircle(neighborhood, center,  50,  0.075, 'rgb(255, 255, 0)');
                 // TODO add data for other offices,
+
+                return neighborhood;
             };
 
             // TODO this should be called whenever the lat/long is changed
             list_of_functions_to_call_when_latlong_change.push(add_neighborhood);
-            add_neighborhood(lat, long);
+            var center = [lat, long];
+            var neighborhood = add_neighborhood(lat, long);
         </script>
 
         <h2 class="text-warning" id="todo"><a href="#todo">
@@ -420,11 +423,14 @@
             createCircle(neighborhood_unzoomed, center_unzoomed,  3000, 0.075, 'rgb(0, 100, 255)');
             createCircle(neighborhood_unzoomed, center_unzoomed,  2000, 0.075, 'rgb(0,  50, 255)');
             createCircle(neighborhood_unzoomed, center_unzoomed,  1000, 0.075, 'rgb(0,   0, 255)');
+
+            return neighborhood_unzoomed;
         };
 
         // TODO this should be called whenever the lat/long is changed
         list_of_functions_to_call_when_latlong_change.push(add_neighborhood_unzoomed);
-        add_neighborhood_unzoomed(lat, long);
+        var center = [lat, long];
+        var neighborhood_unzoomed = add_neighborhood_unzoomed(lat, long);
     </script>
 
     <br><hr><br>
@@ -471,11 +477,14 @@
             my_home_whole.openPopup();
 
             createCircle(whole_france, center_unzoomed, 10000, 0.075, 'rgb(0, 255, 255)');
+
+            return whole_france;
         };
 
         // TODO this should be called whenever the lat/long is changed
         list_of_functions_to_call_when_latlong_change.push(add_whole_france);
-        add_whole_france(lat, long);
+        var center = [lat, long];
+        var whole_france = add_whole_france(lat, long);
     </script>
 
     <br><hr><br>

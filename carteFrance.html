@@ -167,6 +167,7 @@
 
     <script type="text/javascript">
         var add_whole_france = function(lat, long) {
+            var center = [lat, long];
             var center_unzoomed = center;
 
             var whole_france = L.map("whole_france").setView(center_unzoomed, 7); // XXX 13 is zoom level
@@ -194,6 +195,7 @@
             // List of markers
 
             // ------ #1 - My places : home, offices ------
+            /*
             var my_places_unzoomed = [];
                 my_home_unzoomed = L.marker(center_unzoomed);
                 my_places_unzoomed.push(my_home_unzoomed)
@@ -201,13 +203,18 @@
                 // my_home_unzoomed.bindPopup("Dr Lilian Besson,<br>23, boulevard Jeanne d'Arc,<br>35000 - Rennes,<br>France.");
                 my_home_unzoomed.bindPopup("Centre de la carte (@" + lat + "," + long + ")<br>France.");
                 my_home_unzoomed.openPopup();
+            */
 
             createCircle(whole_france, center_unzoomed, 10000, 0.075, 'rgb(0, 255, 255)');
+
+            return whole_france;
         };
 
         // TODO this should be called whenever the lat/long is changed
         list_of_functions_to_call_when_latlong_change.push(add_whole_france);
-        add_whole_france(lat, long);
+        var center = [lat, long];
+        var center_unzoomed = [lat, long];
+        var whole_france = add_whole_france(lat, long);
     </script>
 
     <!-- TODO finish adding extra data to this map? -->
@@ -252,26 +259,37 @@
             }
         });
 
+        console.log("OK 5.0");
         // DONE add a nice icon to my offices, with image as the logo of the building
         var rebelIcon = new OfficeIcon({iconUrl: "css/Logo_ReR.png"});
+        console.log("OK 5.1");
         var justSmallIcon = new smallIcon();
+        console.log("OK 5.2");
         var rebelSmallIcon = new smallIcon({iconUrl: "css/Logo_ReR.png"});
+        console.log("OK 5.3");
 
         // DONE add a nice icon to my offices, with image as the logo of the building
-        var rebelSmallIcon = new smallIcon({iconUrl: "css/Logo_ReR.png"});
         // DONE use absolute coordinates for other points?
         L.marker([ 48.11165, -1.65732], {icon: rebelSmallIcon}).addTo(whole_france).bindPopup("Base rebelle @ maison.").openPopup();
+        console.log("OK 5.5");
 
         var Inria_Icon = new OfficeIcon_rectangle({iconUrl: "css/Logo_Inria.png"});
+        console.log("OK 5.6");
         L.marker([ 48.11660, -1.63934 ], {icon: Inria_Icon}).addTo(whole_france).bindPopup("IRISA et centre Inria Bretagne Atlantique.");
+        console.log("OK 5.7");
 
         var ENSR_Icon = new smallIcon({iconUrl: "css/Logo_ENSRennes.png"});
+        console.log("OK 5.8");
         L.marker([ 48.04613, -1.74530 ], {icon: ENSR_Icon}).addTo(whole_france).bindPopup("École Normale Supérieure de Rennes (ENS de Rennes).");
+        console.log("OK 5.9");
         L.marker([ 48.04613, -1.74530 ], {icon: rebelSmallIcon}).addTo(whole_france).bindPopup("École Normale Supérieure de Rennes (ENS de Rennes).");
+        console.log("OK 5.10");
 
         var CentraleSupelec_Icon = new smallIcon_rectangle({iconUrl: "css/Logo_CentraleSupelec.png"});
+        console.log("OK 5.11");
         L.marker([ 48.12567, -1.62324 ], {icon: CentraleSupelec_Icon}).addTo(whole_france).bindPopup("CentraleSupélec, campus de Rennes.");
 
+        console.log("OK 6");
 
         // Briançon
         // https://www.openstreetmap.org/way/73572240#map=19/44.88497/6.63432&layers=N
@@ -335,6 +353,7 @@
 
         // TODO add ENS Cachan, ENS Ulm, ENS Lyon, Lycée Thiers, and other "safe home points"
         // TODO Briançon x2, Arles, Avignon, Marseille x2, Grenoble x2, Nantes, Bordeaux, Lille x3, Lyon x3,
+        console.log("OK 7");
     </script>
 
     <br><hr><br>

@@ -222,11 +222,14 @@
             createCircle(neighborhood_unzoomed, center_unzoomed,  3000, 0.075, 'rgb(0, 100, 255)');
             createCircle(neighborhood_unzoomed, center_unzoomed,  2000, 0.075, 'rgb(0,  50, 255)');
             createCircle(neighborhood_unzoomed, center_unzoomed,  1000, 0.075, 'rgb(0,   0, 255)');
+
+            return neighborhood_unzoomed;
         };
 
         // TODO this should be called whenever the lat/long is changed
         list_of_functions_to_call_when_latlong_change.push(add_neighborhood_unzoomed);
-        add_neighborhood_unzoomed(lat, long);
+        var center = [lat, long];
+        var neighborhood_unzoomed = add_neighborhood_unzoomed(lat, long);
     </script>
 
     <br><hr><br>

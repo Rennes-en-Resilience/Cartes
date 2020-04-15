@@ -228,11 +228,14 @@
                 createCircle(neighborhood, center,  100, 0.075, 'rgb(255, 225, 0)');
                 createCircle(neighborhood, center,  50,  0.075, 'rgb(255, 255, 0)');
                 // TODO add data for other offices,
+
+                return neighborhood;
             };
 
             // TODO this should be called whenever the lat/long is changed
             list_of_functions_to_call_when_latlong_change.push(add_neighborhood);
-            add_neighborhood(lat, long);
+            var center = [lat, long];
+            var neighborhood = add_neighborhood(lat, long);
         </script>
 
         <h2 class="text-warning" id="todo"><a href="#todo">
