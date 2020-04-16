@@ -471,186 +471,41 @@
     </script>
 
     <!-- TODO finish adding extra data to this map? -->
-    <script type="text/javascript">
-        var lat_zero  = (0 in center) ? center[0] : default_lat;
-        var long_zero  = (1 in center) ? center[1] : default_long;
+    <script type="text/javascript" src="js/beforeGettingBasesData.js"></script>
 
-        // https://leafletjs.com/examples/custom-icons/
-        var OfficeIcon = L.Icon.extend({
-            options: {
-                iconSize:     [64, 64],
-                iconAnchor:   [32, 32],
-                popupAnchor:  [0, 0]
-            }
-        });
-        var OfficeIcon_rectangle = OfficeIcon.extend({
-            options: {
-                iconSize:     [64, 32],
-            }
-        });
-        var smallIcon = OfficeIcon.extend({
-            options: {
-                iconSize:     [32, 32],
-                iconAnchor:   [16, 16],
-            }
-        });
-        var verySmallIcon = OfficeIcon.extend({
-            options: {
-                iconSize:     [16, 16],
-                iconAnchor:   [8, 8],
-            }
-        });
-        var smallIcon_rectangle = OfficeIcon.extend({
-            options: {
-                iconSize:     [32, 16],
-                iconAnchor:   [8, 8],
-            }
-        });
-
-        var random_pick = function(myArray) {
-            return myArray[Math.floor(Math.random() * myArray.length)];
-        };
-
-        var offices_bases = [];
-        var rebel_bases = [];
-
-        var add_one_base = function(base, openPopup) {
-            console.log("add_one_base avec base =", base, " et openPopup =", openPopup);  // DEBUG
-            var coordinate = base.coordinate;
-            var icon = base.icon;
-            var legend = base.legend;
-            console.log("Ajout d'une  aux coordonnées ", coordinate, " avec l'icône ", icon, " et la légende ", legend);  // DEBUG
-            var marker = L.marker(coordinate, {icon: icon});
-            marker.addTo(whole_france);
-            marker.bindPopup(legend);
-            if (openPopup) { marker.openPopup() };
-            return marker;
-        };
-        var add_random_base = function(bases, openPopup) {
-            var random_base = random_pick(bases);
-            var marker = add_one_base(random_base, openPopup);
-        };
-        var add_all_bases = function(bases) {
-            for (var i = 0; i < bases.length; i++) {
-                console.log("Ajout de la base ", i, " / ", bases.length, " = ", bases[i]);
-                add_one_base(bases[i]);
-            };
-        };
-
-        // DONE add a nice icon to my offices, with image as the logo of the building
-        var rebelIcon = new OfficeIcon({iconUrl: "css/Logo_ReR.png"});
-        var justSmallIcon = new smallIcon();
-        // var rebelSmallIcon = new smallIcon({iconUrl: "css/Logo_ReR.png"});
-        var rebelSmallIcon = new verySmallIcon({iconUrl: "css/Logo_ReR.png"});
-        var Inria_Icon = new OfficeIcon_rectangle({iconUrl: "css/Logo_Inria.png"});
-        var ENSR_Icon = new smallIcon({iconUrl: "css/Logo_ENSRennes.png"});
-        var CentraleSupelec_Icon = new smallIcon_rectangle({iconUrl: "css/Logo_CentraleSupelec.png"});
-
-        // DONE add a nice icon to my offices, with image as the logo of the building
-        // DONE use absolute coordinates for other points?
-        L.marker([ 48.11165, -1.65732], {icon: rebelSmallIcon}).addTo(whole_france).bindPopup("Centre de la carte.").openPopup();
-
-        // TODO add data for other offices
-        offices_bases.push({coordinate: [ 48.11660, -1.63934 ], icon: Inria_Icon, legend: "IRISA et centre Inria Bretagne Atlantique."});
-        offices_bases.push({coordinate: [ 48.04613, -1.74530 ], icon: ENSR_Icon, legend: "École Normale Supérieure de Rennes (ENS de Rennes)."});
-        offices_bases.push({coordinate: [ 48.12567, -1.62324 ], icon: CentraleSupelec_Icon, legend: "CentraleSupélec, campus de Rennes."});
-
-        // TODO add data for rebel bases
-        // Briançon
-        // https://www.openstreetmap.org/way/73572240#map=19/44.88497/6.63432&layers=N
-        rebel_bases.push({coordinate: [ 44.88497, 6.63432 ], icon: rebelSmallIcon, legend: "Base rebelle @ Briançon<br><a href='https://www.openstreetmap.org/way/73572240#map=19/44.88497/6.63432&layers=N'>Lycée à Briançon</a><br>."});
-
-        // ENS de Cachan / Paris-Saclay
-        // https://www.openstreetmap.org/relation/961459#map=17/48.78893/2.32724&layers=N
-        rebel_bases.push({coordinate: [ 48.78893, 2.32724 ], icon: rebelSmallIcon, legend: "Base rebelle @ Cachan<br><a href='https://www.openstreetmap.org/relation/961459#map=17/48.78893/2.32724&layers=N'>ENS de Cachan / Paris-Saclay</a><br>."});
-
-        // ENS de Ulm
-        // https://www.openstreetmap.org/way/56131470#map=18/48.84171/2.34482&layers=N
-        rebel_bases.push({coordinate: [ 48.84171, 2.34482 ], icon: rebelSmallIcon, legend: "Base rebelle @ Ulm<br><a href='https://www.openstreetmap.org/way/56131470#map=18/48.84171/2.34482&layers=N'>ENS de Ulm</a><br>."});
-
-        // ENS de Lyon
-        // https://www.openstreetmap.org/way/44505423#map=19/45.72858/4.82685&layers=N
-        rebel_bases.push({coordinate: [ 45.72858, 4.82685 ], icon: rebelSmallIcon, legend: "Base rebelle @ Lyon<br><a href='https://www.openstreetmap.org/way/44505423#map=19/45.72858/4.82685&layers=N'>ENS de Lyon</a><br>."});
-
-        // Grenoble : gare, et FIXME deux amis
-        // https://www.openstreetmap.org/node/2069781490#map=19/45.19011/5.71560&layers=N
-        rebel_bases.push({coordinate: [ 45.19011, 5.71560 ], icon: rebelSmallIcon, legend: "Base rebelle @ Grenoble<br><a href='https://www.openstreetmap.org/node/2069781490#map=19/45.19011/5.71560&layers=N'>Gare de Grenoble</a><br>."});
-
-        // Marseille : gare, lycée Thiers et FIXME trois amis
-        // https://www.openstreetmap.org/way/229891423#map=17/43.29658/5.38249&layers=N
-        rebel_bases.push({coordinate: [ 43.29658, 5.38249 ], icon: rebelSmallIcon, legend: "Base rebelle @ Marseille<br><a href='https://www.openstreetmap.org/way/229891423#map=17/43.29658/5.38249&layers=N'>Lycée Thiers à Marseille</a><br>."});
-
-        // Lyon : gares, lycées, ENS et FIXME deux amis
-        // https://www.openstreetmap.org/node/567859650#map=19/45.73468/4.83434&layers=N
-        rebel_bases.push({coordinate: [ 45.73468, 4.83434 ], icon: rebelSmallIcon, legend: "Base rebelle @ Lyon<br><a href='https://www.openstreetmap.org/node/567859650#map=19/45.73468/4.83434&layers=N'>Gare à Lyon</a><br>."});
-
-        // Lille : gares, labo, FIXME huit amis
-        // https://www.openstreetmap.org/way/79508998#map=17/50.60565/3.14779&layers=N
-        rebel_bases.push({coordinate: [ 50.60565, 3.14779 ], icon: rebelSmallIcon, legend: "Base rebelle @ Lille<br><a href='https://www.openstreetmap.org/way/79508998#map=17/50.60565/3.14779&layers=N'>Inria à Lille</a><br>."});
-
-        // Bordeaux : gare, labo, FIXME un ami
-        // https://www.openstreetmap.org/node/3855259247#map=19/44.80826/-0.59975&layers=N
-        rebel_bases.push({coordinate: [ 44.80826, -0.59975 ], icon: rebelSmallIcon, legend: "Base rebelle @ Bordeaux<br><a href='https://www.openstreetmap.org/node/3855259247#map=19/44.80826/-0.59975&layers=N'>Inria à Bordeaux</a><br>."});
-
-        // Nantes : gare, labo, FIXME deux amis
-        // https://www.openstreetmap.org/way/143814194#map=17/47.24902/-1.54756&layers=N
-        rebel_bases.push({coordinate: [ 47.24902, -1.54756 ], icon: rebelSmallIcon, legend: "Base rebelle @ Nantes<br><a href='https://www.openstreetmap.org/way/143814194#map=17/47.24902/-1.54756&layers=N'>Gare à Nantes</a><br>."});
-
-        // Massy : gare, FIXME deux amis
-        // https://www.openstreetmap.org/node/2350011259#map=17/48.72589/2.25821&layers=N
-        rebel_bases.push({coordinate: [ 48.72589, 2.25821 ], icon: rebelSmallIcon, legend: "Base rebelle @ Massy<br><a href='https://www.openstreetmap.org/node/2350011259#map=17/48.72589/2.25821&layers=N'>Gares à Massy</a><br>."});
-
-        // Arles : gare, FIXME un ami
-        // https://www.openstreetmap.org/node/2468167025#map=19/43.68468/4.63206&layers=N
-        rebel_bases.push({coordinate: [ 43.68468, 4.63206 ], icon: rebelSmallIcon, legend: "Base rebelle @ Arles<br><a href='https://www.openstreetmap.org/node/2468167025#map=19/43.68468/4.63206&layers=N'>Gare à Arles</a><br>."});
-
-        // Avignon : gare, FIXME un ami
-        // https://www.openstreetmap.org/way/83765633#map=19/43.94189/4.80529&layers=N
-        rebel_bases.push({coordinate: [ 43.94189, 4.80529 ], icon: rebelSmallIcon, legend: "Base rebelle @ Avignon<br><a href='https://www.openstreetmap.org/way/83765633#map=19/43.94189/4.80529&layers=N'>Gare à Avignon</a><br>."});
-
-        // Mur-de-Barrez : FIXME un ami
-        // https://www.openstreetmap.org/relation/1283469#map=13/44.8416/2.6642&layers=N
-        rebel_bases.push({coordinate: [ 44.8416, 2.6642 ], icon: rebelSmallIcon, legend: "Base rebelle @ Mur-de-Barrez<br><a href='https://www.openstreetmap.org/relation/1283469#map=13/44.8416/2.6642&layers=N'>Mairie à Mur-de-Barrez</a><br>."});
-
-        // Lausanne : gare, labo, FIXME deux amis
-        // https://www.openstreetmap.org/way/46612414#map=19/46.51782/6.62260&layers=N
-        rebel_bases.push({coordinate: [ 46.51782, 6.62260 ], icon: rebelSmallIcon, legend: "Base rebelle @ Lausanne<br><a href='https://www.openstreetmap.org/way/46612414#map=19/46.51782/6.62260&layers=N'>Gare à Lausanne</a><br>."});
-
-        // TODO add ENS Cachan, ENS Ulm, ENS Lyon, Lycée Thiers, and other "safe home points"
-        // TODO Briançon x2, Arles, Avignon, Marseille x2, Grenoble x2, Nantes, Bordeaux, Lille x3, Lyon x3,
-    </script>
+    <script src="js/dataOffices.js"></script>
+    <script src="js/dataRebelBases.js"></script>
 
     <div id="button_add_rebel_icons">
         <script type="text/javascript">
             // 1st part: offices
-            console.log("Ajout de tous les bureaux...");
             add_all_bases(offices_bases);
             // 2nd part: rebel bases
-            console.log("Ajout d'une base rebelle avec popup...");
-            console.log("rebel_bases =", rebel_bases);
-            add_random_base(rebel_bases, true);
-            console.log("Ajout de quatre bases rebelles sans popup...");
             var add_random_rebel_base = function() {
                 return add_random_base(rebel_bases, false);
             };
             add_random_rebel_base();
             add_random_rebel_base();
             add_random_rebel_base();
-            add_random_rebel_base();
+            var base = add_random_rebel_base();
             var add_all_rebel_bases = function() {
                 return add_all_bases(rebel_bases);
             };
-            alert("OK quatre bases rebelles ajoutées ?");
+            alert("OK base maison + quatre bases rebelles ajoutées ?");
+            console.log("base.remove = ", base.remove);
         </script>
-        <button type="button" onclick="add_random_rebel_base" class="btn btn-primary">Montre <b>une</b> base rebelle</button>
-        <!-- <button type="button" class="btn btn-danger">Supprime les bases rebelle</button> -->
-        <button type="button" onclick="add_all_rebel_bases" class="btn btn-warning">Montre <b>toutes les</b> bases rebelles</button>
+        <!-- TODO make sure these buttons are pretty, and work well -->
+        <p class="text-center">
+            <button type="button" onclick="add_random_rebel_base();" class="btn btn-primary">Montre <b>une</b> base rebelle</button>
+            <button type="button" onclick="add_all_rebel_bases();" class="btn btn-warning">Montre <b>toutes les</b> bases rebelles</button>
+            <!-- TODO this button does NOT work yet! -->
+            <button type="button" class="btn btn-danger">Supprime les bases rebelle ?</button>
+        </p>
     </div>
 
     <br><hr><br>
 
     <!-- XXX changer sa localisation -->
-    <!-- TODO move this AFTER the two maps? -->
     <div id="#changeLocalisation">
         <div class="card border-info mb-3" style="max-width: 90rem;">
             <div class="card-header">
