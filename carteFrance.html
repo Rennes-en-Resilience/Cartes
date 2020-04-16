@@ -146,21 +146,10 @@
 
     <!-- TODO finish adding extra data to this map? -->
     <script type="text/javascript">
-        // https://leafletjs.com/examples/custom-icons/
-        var LeafIcon = L.Icon.extend({
-            options: {
-                shadowUrl: "css/leaf-shadow.png",
-                iconSize:     [38, 95],
-                shadowSize:   [50, 64],
-                iconAnchor:   [22, 94],
-                shadowAnchor: [ 4, 62],
-                popupAnchor:  [-3, -76]
-            }
-        });
-
         var lat_zero  = (0 in center) ? center[0] : default_lat;
         var long_zero  = (1 in center) ? center[1] : default_long;
 
+        // https://leafletjs.com/examples/custom-icons/
         var OfficeIcon = L.Icon.extend({
             options: {
                 iconSize:     [64, 64],
@@ -192,38 +181,26 @@
             }
         });
 
-        console.log("OK 5.0");
         // DONE add a nice icon to my offices, with image as the logo of the building
         var rebelIcon = new OfficeIcon({iconUrl: "css/Logo_ReR.png"});
-        console.log("OK 5.1");
         var justSmallIcon = new smallIcon();
-        console.log("OK 5.2");
         // var rebelSmallIcon = new smallIcon({iconUrl: "css/Logo_ReR.png"});
         var rebelSmallIcon = new verySmallIcon({iconUrl: "css/Logo_ReR.png"});
-        console.log("OK 5.3");
 
         // DONE add a nice icon to my offices, with image as the logo of the building
         // DONE use absolute coordinates for other points?
         L.marker([ 48.11165, -1.65732], {icon: rebelSmallIcon}).addTo(whole_france).bindPopup("Base rebelle @ maison.").openPopup();
-        console.log("OK 5.5");
 
         var Inria_Icon = new OfficeIcon_rectangle({iconUrl: "css/Logo_Inria.png"});
-        console.log("OK 5.6");
         L.marker([ 48.11660, -1.63934 ], {icon: Inria_Icon}).addTo(whole_france).bindPopup("IRISA et centre Inria Bretagne Atlantique.");
-        console.log("OK 5.7");
 
         var ENSR_Icon = new smallIcon({iconUrl: "css/Logo_ENSRennes.png"});
-        console.log("OK 5.8");
         L.marker([ 48.04613, -1.74530 ], {icon: ENSR_Icon}).addTo(whole_france).bindPopup("École Normale Supérieure de Rennes (ENS de Rennes).");
-        console.log("OK 5.9");
         L.marker([ 48.04613, -1.74530 ], {icon: rebelSmallIcon}).addTo(whole_france).bindPopup("École Normale Supérieure de Rennes (ENS de Rennes).");
-        console.log("OK 5.10");
 
         var CentraleSupelec_Icon = new smallIcon_rectangle({iconUrl: "css/Logo_CentraleSupelec.png"});
-        console.log("OK 5.11");
         L.marker([ 48.12567, -1.62324 ], {icon: CentraleSupelec_Icon}).addTo(whole_france).bindPopup("CentraleSupélec, campus de Rennes.");
 
-        console.log("OK 6");
 
         // Briançon
         // https://www.openstreetmap.org/way/73572240#map=19/44.88497/6.63432&layers=N
@@ -287,7 +264,6 @@
 
         // TODO add ENS Cachan, ENS Ulm, ENS Lyon, Lycée Thiers, and other "safe home points"
         // TODO Briançon x2, Arles, Avignon, Marseille x2, Grenoble x2, Nantes, Bordeaux, Lille x3, Lyon x3,
-        console.log("OK 7");
     </script>
 
     <br><hr><br>
