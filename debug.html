@@ -192,7 +192,7 @@
                     + '<li><a href="#1km@lat,long">le format <code>@48.111,-1.657</code> de OpenStreetMap</a> (ex: <a href="https://besson.link/carte-confinement/#1km@45.04608,1.74527"><code>https://besson.link/carte-confinement/#1km@45.04608,1.74527</code></a>) ;</li>'
                     + '<li><a href="#1km?lat=48.111&long=">le format <code>?lat=48.111,long=1.657</code> d\'une page web "classique" avec des paramètres</a> (ex: <a target="_blank" href="https://besson.link/carte-confinement/#1km?lat=45.04608&long=1.74527"><code>https://besson.link/carte-confinement/#1km?lat=45.04608&long=1.74527</code></a>).</li>'
                 + '</ul>'
-                + '<img style="visibility: hidden; display: none;" alt="GA|Analytics" src="https://ga-beacon.appspot.com/UA-38514290-1/carte-confinement/?pixel&lat=' + LAT + '&long=' + LONG + '"/>'
+                + '<img style="visibility: hidden; display: none;" alt="GA|Analytics" src="https://ga-beacon.appspot.com/UA-38514290-1/carte-confinement/?pixel&lat=' + lat + '&long=' + long + '"/>'
             ;
             };
 
@@ -515,7 +515,9 @@
         var rebel_bases = [];
 
         var add_one_base = function(base) {
-            var coordinate, icon, legend = base;
+            var coordinate = base[0];
+            var icon = base[1];
+            var legend = base[2];
             return L.marker(coordinate, {icon: icon}).addTo(whole_france).bindPopup(legend);
         };
         var add_random_base = function(openPopup) {
@@ -759,7 +761,7 @@
                 "Il nous faudra bâtir une stratégie où nous retrouverons le temps long, la possibilité de planifier, <b>la sobriété carbone</b>, la prévention, <b>la résilience qui seules peuvent permettre de faire face aux crises à venir</b>."
             </small></p>
             <footer class="blockquote-footer">
-                notre président Emmanuel Macron dans
+                <a href="https://youtu.be/HVQBEuIGPQw?t=103">notre président Emmanuel Macron</a> dans
                 <cite title="Source Title"><a target="_blank" href="https://www.lemonde.fr/politique/article/2020/04/13/nous-tiendrons-l-integralite-du-discours-d-emmanuel-macron_6036480_823448.html">son discours du lundi 13 avril 2020</a></cite>
             </footer>
         </blockquote>
