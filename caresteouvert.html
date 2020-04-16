@@ -30,13 +30,13 @@
     <link rel="stylesheet" type="text/css" href="css/carte.css"/>
     <!-- TODO uncomment if not using local storage for the CSS -->
     <!-- <link id="theme" rel="stylesheet" type="text/css" href="https://bootswatch.com/4/united/bootstrap.min.css"/> -->
-    <link rel="stylesheet" type="text/css" href="css/united.css"/>
-    <div id="themeChanger"></div>
-    <!-- <link rel="stylesheet" type="text/css" href="css/darkly.css"/> -->
+    <div id="themeChanger">
+        <link rel="stylesheet" type="text/css" href="css/united.css"/>
+        <!-- <link rel="stylesheet" type="text/css" href="css/darkly.css"/> -->
+    </div>
 
     <!-- This piece of javascript gets and sets the coordinate of the user -->
     <script type="text/javascript" src="js/getCenter.js"></script>
-    <!-- TODO add integrity, at the end -->
     <script type="text/javascript">
         var url = window.location.href;
         var center = getCenter(48.11165, -1.65732, url);
@@ -59,17 +59,19 @@
                     <a class="dropdown-item" href="?theme=day">Défaut</a>
                     <!-- <div class="dropdown-divider"></div> -->
                     <a class="dropdown-item" href="?theme=night">Nuit</a>
-                    <!-- TODO use a button instead! -->
                 </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../">Accueil du site web (..)</a>
+                    <a class="nav-link" href="carte.html">Carte principale</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="https://RennesenResilience.WordPress.com/">Blog</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../">Site principal ?</a>
+                    <a class="nav-link" href="../">Dossier supérieur</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://besson.link/">Site perso</a>
                 </li>
             </ul>
         </div>
