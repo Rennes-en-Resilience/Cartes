@@ -484,22 +484,26 @@
             var add_random_rebel_base = function() {
                 return add_random_base(rebel_bases, false);
             };
-            add_random_rebel_base();
-            add_random_rebel_base();
-            add_random_rebel_base();
-            var base = add_random_rebel_base();
             var add_all_rebel_bases = function() {
                 return add_all_bases(rebel_bases);
             };
-            alert("OK base maison + quatre bases rebelles ajoutées ?");
-            console.log("base.remove = ", base.remove);
+            var current_rebel_bases = [];
+            var delete_current_rebel_bases = function (rebel_bases) {
+                for (var i = 0; i < rebel_bases.length; i++) {
+                    rebel_bases[i].remove();
+                };
+            };
+            current_rebel_bases.push(add_random_rebel_base());
+            current_rebel_bases.push(add_random_rebel_base());
+            current_rebel_bases.push(add_random_rebel_base());
+            current_rebel_bases.push(add_random_rebel_base());
         </script>
         <!-- TODO make sure these buttons are pretty, and work well -->
         <p class="text-center">
             <button type="button" onclick="add_random_rebel_base();" class="btn btn-primary">Montre <b>une</b> base rebelle</button>
             <button type="button" onclick="add_all_rebel_bases();" class="btn btn-warning">Montre <b>toutes les</b> bases rebelles</button>
             <!-- TODO this button does NOT work yet! -->
-            <button type="button" class="btn btn-danger">Supprime les bases rebelle ?</button>
+            <button type="button" onclick="delete_current_rebel_bases(current_rebel_bases);" class="btn btn-danger">Supprime les bases rebelle ?</button>
         </p>
     </div>
 
