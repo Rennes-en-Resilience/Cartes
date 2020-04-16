@@ -14,21 +14,17 @@
 
     <title>Cartes et outils face au confinement ~ Rennes en Résilience (#ReR-A)</title>
 
-    <!-- TODO uncomment if not using local storage for the CSS -->
     <link rel="stylesheet" href="css/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" />
     <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="" /> -->
 
-    <!-- TODO uncomment if not using local storage for the javascript -->
     <!-- Make sure you put this AFTER Leaflet's CSS -->
     <script type="text/javascript" src="js/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="></script>
     <!-- <script type="text/javascript" src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin="" ></script> -->
 
-    <!-- TODO I can add these if I want buttons etc to be closable - it's useless, so... nope? -->
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="css/carte.css"/>
-    <!-- TODO uncomment if not using local storage for the CSS -->
     <!-- <link id="theme" rel="stylesheet" type="text/css" href="https://bootswatch.com/4/united/bootstrap.min.css"/> -->
     <div id="themeChanger">
         <link rel="stylesheet" type="text/css" href="css/united.css"/>
@@ -44,7 +40,6 @@
 </head>
 <body>
 
-<!-- TODO add global navbar: with direct links to all the h1, h2 of the page ! -->
 <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary" style="">
     <div class="container">
         <a href="#intro" class="navbar-brand">Rennes en Résilience</a>
@@ -58,7 +53,8 @@
                         <a class="dropdown-item" href="?theme=night">Nuit</a>
                     </div>
                 </li>
-                <!-- <li class="nav-item">
+                <!-- TODO chose between dropdown menu or checkbox, but use only ONE of the two -->
+                <li class="nav-item">
                     <fieldset>
                         <div class="form-group">
                             <div class="custom-control custom-switch">
@@ -66,23 +62,23 @@
                                 <br>
                                 <label class="custom-control-label" for="switchNightMode">Mode nuit ?</label>
                                 <script type="text/javascript">
-                                    // TODO add an event listener to this
                                     var currentThemeIs = ("theme" in params) ? params["theme"] : "default";
+                                    // DONE add an event listener to this ?
                                     document.getElementById("switchNightMode").addEventListener("change", function (evt) {
                                         var isChecked = this.value;
                                         var url = window.document.href;
-                                        window.document.href = url + "?theme=night";
-                                        // window.document.href = url + "?theme=default";
+                                        currentThemeIs = "night"
+                                        window.document.href = url + "?theme=" + currentThemeIs;
                                         console.log("DEBUG switchNideMode was changed and now its value is =", isChecked, " and evt =", evt, " and this = ", this);
-                                        // document.getElementById("switchNightMode").innerHTML = parseFloat(this.value);
+                                        // document.getElementById("switchNightMode").innerHTML = parseFloat(this.value);  // XXX
                                     });
                                 </script>
                             </div>
                         </div>
                     </fieldset>
-                </li> -->
+                </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="cartes" aria-expanded="false">Différentes cartes<span class="caret"></span></a>
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="cartes" aria-expanded="false">Liens internes<span class="caret"></span></a>
                     <div class="dropdown-menu" aria-labelledby="cartes">
                             <a class="dropdown-item" href="#liens">Liens</a>
                             <a class="dropdown-item" href="#caresteouvert">CaResteOuvert</a>
@@ -92,8 +88,15 @@
                             <a class="dropdown-item" href="#france">France</a>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="carte.html">Carte principale</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="cartes" aria-expanded="false">Autres cartes<span class="caret"></span></a>
+                    <div class="dropdown-menu" aria-labelledby="cartes">
+                            <a class="dropdown-item" href="carte.html">Carte principale</a>
+                            <a class="dropdown-item" href="caresteouvert.html">CaResteOuvert</a>
+                            <a class="dropdown-item" href="carte1km.html">1 km</a>
+                            <a class="dropdown-item" href="carte10km.html">10 kms</a>
+                            <a class="dropdown-item" href="carteFrance.html">France</a>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="https://RennesenResilience.WordPress.com/">Blog</a>
@@ -547,6 +550,7 @@
                         document.getElementById("lat").innerHTML = parseFloat(this.value);
                         for (let i = 0; i < list_of_functions_to_call_when_latlong_change.length; i++) {
                             var func = list_of_functions_to_call_when_latlong_change[i];
+                            console.log("DEBUG #1 Calling... func = ", func, " ...");  // DEBUG
                             func(lat, long);
                         };
                     });
@@ -556,6 +560,7 @@
                         document.getElementById("long").innerHTML = parseFloat(this.value);
                         for (let i = 0; i < list_of_functions_to_call_when_latlong_change.length; i++) {
                             var func = list_of_functions_to_call_when_latlong_change[i];
+                            console.log("DEBUG #2 Calling... func = ", func, " ...");  // DEBUG
                             func(lat, long);
                         };
                     });
@@ -589,7 +594,6 @@
         </h2>
 
         <div class="alert alert-dismissible alert-success">
-            <!-- TODO add bootstrap.js to have interactive elements -->
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <!-- <strong>Heads up!</strong> This <a href="#" class="alert-link">alert needs your attention</a>, but it's not super important. -->
             <blockquote class="blockquote text-right">
@@ -604,7 +608,6 @@
         </div>
 
         <div class="alert alert-dismissible alert-warning">
-            <!-- TODO add bootstrap.js to have interactive elements -->
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <!-- <strong>Heads up!</strong> This <a href="#" class="alert-link">alert needs your attention</a>, but it's not super important. -->
             <blockquote class="blockquote text-right">

@@ -14,21 +14,17 @@
 
     <title>Cartes et outils face au confinement ~ Rennes en Résilience (#ReR-A)</title>
 
-    <!-- TODO uncomment if not using local storage for the CSS -->
     <link rel="stylesheet" href="css/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" />
     <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="" /> -->
 
-    <!-- TODO uncomment if not using local storage for the javascript -->
     <!-- Make sure you put this AFTER Leaflet's CSS -->
     <script type="text/javascript" src="js/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="></script>
     <!-- <script type="text/javascript" src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin="" ></script> -->
 
-    <!-- TODO I can add these if I want buttons etc to be closable - it's useless, so... nope? -->
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="css/carte.css"/>
-    <!-- TODO uncomment if not using local storage for the CSS -->
     <!-- <link id="theme" rel="stylesheet" type="text/css" href="https://bootswatch.com/4/united/bootstrap.min.css"/> -->
     <div id="themeChanger">
         <link rel="stylesheet" type="text/css" href="css/united.css"/>
@@ -47,38 +43,45 @@
 </head>
 <body>
 
-    <!-- TODO add global navbar: with direct links to all the h1, h2 of the page ! -->
-    <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary" style="">
-        <div class="container">
-            <a href="#intro" class="navbar-brand">Rennes en Résilience</a>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="themes" aria-expanded="false">Thème ?<span class="caret"></span></a>
-                    <div class="dropdown-menu" aria-labelledby="themes">
-                        <a class="dropdown-item" href="?theme=day">Défaut</a>
-                        <!-- <div class="dropdown-divider"></div> -->
-                        <a class="dropdown-item" href="?theme=night">Nuit</a>
+<div class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary" style="">
+    <div class="container">
+        <a href="#intro" class="navbar-brand">Rennes en Résilience</a>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="themes" aria-expanded="false">Thème ?<span class="caret"></span></a>
+                <div class="dropdown-menu" aria-labelledby="themes">
+                    <a class="dropdown-item" href="?theme=day">Défaut</a>
+                    <!-- <div class="dropdown-divider"></div> -->
+                    <a class="dropdown-item" href="?theme=night">Nuit</a>
+                </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="cartes" aria-expanded="false">Autres cartes<span class="caret"></span></a>
+                    <div class="dropdown-menu" aria-labelledby="cartes">
+                            <a class="dropdown-item" href="carte.html">Carte principale</a>
+                            <a class="dropdown-item" href="caresteouvert.html">CaResteOuvert</a>
+                            <!-- <a class="dropdown-item" href="carte1km.html">1 km</a> -->
+                            <a class="dropdown-item" href="carte10km.html">10 kms</a>
+                            <a class="dropdown-item" href="carteFrance.html">France</a>
                     </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="carte.html">Carte principale</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://RennesenResilience.WordPress.com/">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../">Dossier supérieur</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://besson.link/">Site perso</a>
-                    </li>
-                </ul>
-            </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://RennesenResilience.WordPress.com/">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../">Dossier supérieur</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://besson.link/">Site perso</a>
+                </li>
+            </ul>
         </div>
     </div>
+</div>
 
 <br><br>
+
 <div id="informations">
     <h1 id="intro">
         <a href="#intro">Pandémie de coronavirus Covid'19</a>
@@ -178,7 +181,6 @@
 
         <div class="map" id="neighborhood"></div>
         <script type="text/javascript">
-            // TODO all this piece of javascript has to be wrapped in a function, to be updated easily when the sliders above change their values!
             var add_neighborhood = function(lat, long) {
                 var center = [lat, long];
                 var neighborhood = L.map("neighborhood").setView(center, 15); // XXX 15 is zoom level
@@ -229,7 +231,6 @@
                 createCircle(neighborhood, center,  250, 0.075, 'rgb(255, 200, 0)');
                 createCircle(neighborhood, center,  100, 0.075, 'rgb(255, 225, 0)');
                 createCircle(neighborhood, center,  50,  0.075, 'rgb(255, 255, 0)');
-                // TODO add data for other offices,
 
                 return neighborhood;
             };
@@ -256,8 +257,9 @@
         On m'a aussi parlé de cet outil : <a target="_blank" href="https://www.esrifrance.fr/covid-19-confinement/"><code>www.ESRIFrance.fr/covid-19-confinement</code></a>, qui fonctionne aussi très bien (11/04/20).
     </div>
 
+    <br><hr><br>
+
     <!-- XXX changer sa localisation -->
-    <!-- TODO move this AFTER the two maps? -->
     <div id="#changeLocalisation">
         <div class="card border-info mb-3" style="max-width: 90rem;">
             <div class="card-header">
@@ -295,7 +297,6 @@
                         </div>
                     </div>
                 </fieldset>
-                <!-- TODO these sliders work well but how to continuously update some piece of code, using their values. Cf. https://stackoverflow.com/a/26946264/ -->
                 <script type="text/javascript">
                     document.getElementById("range_lat").addEventListener("change", function (evt) {
                         lat = this.value;
@@ -320,76 +321,76 @@
             </form>
         </div>
     </div>
-
-    <footer>
-        <h2 id="conclusion">
-            <a href="#conclusion">Conclusion et licence <span class="alignright"><span class="badge badge-pill badge-secondary">¶</span></span></a>
-        </h2>
-
-        <div class="alert alert-dismissible alert-success">
-            <!-- TODO add bootstrap.js to have interactive elements -->
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <!-- <strong>Heads up!</strong> This <a href="#" class="alert-link">alert needs your attention</a>, but it's not super important. -->
-            <blockquote class="blockquote text-right">
-                <p class="mb-0"><small>
-                    "Je ne vois pas un état de guerre, je vois un état de siège. Comme une  citadelle assiégée, tout est à l’arrêt, et pour tenir le plus longtemps possible, confinés, il nous faut prendre soin les uns des autres, <b>réduire nos besoins</b>, partager. L'ennemi n’est pas extérieur mais intérieur, nous devons revoir notre rapport au monde..."
-                </small></p>
-                <footer class="blockquote-footer">
-                    Pablo Servigne dans
-                    <cite title="Source Title"><a target="_blank" href="https://www.facebook.com/xrfrance/posts/2461856240756038">cette interview</a> dans Le Monde du 13/04/20</cite>
-                </footer>
-            </blockquote>
-        </div>
-
-        <div class="alert alert-dismissible alert-warning">
-            <!-- TODO add bootstrap.js to have interactive elements -->
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <!-- <strong>Heads up!</strong> This <a href="#" class="alert-link">alert needs your attention</a>, but it's not super important. -->
-            <blockquote class="blockquote text-right">
-                <p class="mb-0"><small>
-                    "Il nous faudra bâtir une stratégie où nous retrouverons le temps long, la possibilité de planifier, <b>la sobriété carbone</b>, la prévention, <b>la résilience qui seules peuvent permettre de faire face aux crises à venir</b>."
-                </small></p>
-                <footer class="blockquote-footer">
-                    notre président Emmanuel Macron dans
-                    <cite title="Source Title"><a target="_blank" href="https://www.lemonde.fr/politique/article/2020/04/13/nous-tiendrons-l-integralite-du-discours-d-emmanuel-macron_6036480_823448.html">son discours du lundi 13 avril 2020</a></cite>
-                </footer>
-            </blockquote>
-        </div>
-
-        <p class="text-left">
-            Ce document a été écrit par Lilian Besson et les membres de <a target="_blank" href="https://github.com/Rennes-en-Resilience/">@Rennes-en-Resilience</a>, en utilisant notamment <a target="_blank" href="https://leafletjs.com/">Leaflet.js</a>, <a target="_blank" href="https://www.openstreetmap.org/">OpenStreetMap</a>, et <a target="_blank" href="https://www.GitHub.com/">GitHub</a>.
-            Ce projet est <a target="_blank" href="https://lbesson.mit-license.org/">libre et distribué sous licence, selon les conditions de la License MIT</a>,
-            et les sources sont disponibles dans <a target="_blank" href="https://github.com/Rennes-en-Resilience/Cartes-des-commerces-resilients">ce dépôt GitHub</a> sur <code>github.com/Rennes-en-Resilience/Cartes-des-commerces-resilients</code>.
-            N'hésitez pas à participer, à me faire part de votre avis, de vos suggestions etc !
-            Via ce formulaire <a target="_blank" href="https://github.com/Rennes-en-Resilience/Contactez-nous/" target="_blank">sur GitHub</a>, ou par email <code>Rennes.en.Resilience</code> <code>@</code> <code>LaPoste.net</code> ou <code>ProtonMail.com</code>.
-        </p>
-        <!-- <br> -->
-        <p class="text-left">
-            Bidouillé avec amour,
-            et un peu aussi par <a target="_blank" href="TalkAboutGlobalWarmingNow.png">peur du réchauffement climatique</a> (cf <a target="_blank" href="https://questionablecontent.net">QuestionableContent.net</a>),
-            par <span class="love">&hearts;</span> <a target="_blank" href="https://GitHub.com/Naereen/">Lilian Besson (Naereen)</a> <a target="_blank" href="https://github.com/Rennes-en-Resilience/Cartes-des-commerces-resilients/graphs/contributors">et d'autres</a>.
-        </p>
-        <!-- <br> -->
-        <p class="text-center">
-            Copyright © <a target="_blank" href="https://GitHub.com/Naereen/">Lilian Besson (Naereen)</a> et <a target="_blank" href="https://github.com/Rennes-en-Resilience/Cartes-des-commerces-resilients/graphs/contributors">autres contributeurs</a>, 2020, sous licence MIT.
-        </p>
-        <!-- <br> -->
-        <p class="text-right">
-            Je fonctionne selon <a target="_blank" href="https://wiki.lesswrong.com/wiki/Crocker's_rules">les règles de Crocker</a>, alors n'hésitez pas à parler franchement et simplement.
-            <br>
-            Les opinions sont les miennes : je ne parle pas au nom de mes employeurs, qu'ils soient passés, présents ou futurs.
-        </p>
-        <br>
-        <h3 class="LilianHandwrittingFont">
-            <blockquote class="blockquote text-right">
-                Que la force soit avec vous !
-                <br>
-                Merci de m ' avoir lu ! Signé , Lilian Besson - <a target="_blank" href="https://github.com/Naereen/">@Naereen</a>
-            </blockquote>
-        </h3>
-    </footer>
-
 </div>
+
+<br><hr><br>
+
+<footer>
+    <h2 id="conclusion">
+        <a href="#conclusion">Conclusion et licence <span class="alignright"><span class="badge badge-pill badge-secondary">¶</span></span></a>
+    </h2>
+
+    <div class="alert alert-dismissible alert-success">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <!-- <strong>Heads up!</strong> This <a href="#" class="alert-link">alert needs your attention</a>, but it's not super important. -->
+        <blockquote class="blockquote text-right">
+            <p class="mb-0"><small>
+                "Je ne vois pas un état de guerre, je vois un état de siège. Comme une  citadelle assiégée, tout est à l’arrêt, et pour tenir le plus longtemps possible, confinés, il nous faut prendre soin les uns des autres, <b>réduire nos besoins</b>, partager. L'ennemi n’est pas extérieur mais intérieur, nous devons revoir notre rapport au monde..."
+            </small></p>
+            <footer class="blockquote-footer">
+                Pablo Servigne dans
+                <cite title="Source Title"><a target="_blank" href="https://www.facebook.com/xrfrance/posts/2461856240756038">cette interview</a> dans Le Monde du 13/04/20</cite>
+            </footer>
+        </blockquote>
+    </div>
+
+    <div class="alert alert-dismissible alert-warning">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <!-- <strong>Heads up!</strong> This <a href="#" class="alert-link">alert needs your attention</a>, but it's not super important. -->
+        <blockquote class="blockquote text-right">
+            <p class="mb-0"><small>
+                "Il nous faudra bâtir une stratégie où nous retrouverons le temps long, la possibilité de planifier, <b>la sobriété carbone</b>, la prévention, <b>la résilience qui seules peuvent permettre de faire face aux crises à venir</b>."
+            </small></p>
+            <footer class="blockquote-footer">
+                notre président Emmanuel Macron dans
+                <cite title="Source Title"><a target="_blank" href="https://www.lemonde.fr/politique/article/2020/04/13/nous-tiendrons-l-integralite-du-discours-d-emmanuel-macron_6036480_823448.html">son discours du lundi 13 avril 2020</a></cite>
+            </footer>
+        </blockquote>
+    </div>
+
+    <p class="text-left">
+        Ce document a été écrit par Lilian Besson et les membres de <a target="_blank" href="https://github.com/Rennes-en-Resilience/">@Rennes-en-Resilience</a>, en utilisant notamment <a target="_blank" href="https://leafletjs.com/">Leaflet.js</a>, <a target="_blank" href="https://www.openstreetmap.org/">OpenStreetMap</a>, et <a target="_blank" href="https://www.GitHub.com/">GitHub</a>.
+        Ce projet est <a target="_blank" href="https://lbesson.mit-license.org/">libre et distribué sous licence, selon les conditions de la License MIT</a>,
+        et les sources sont disponibles dans <a target="_blank" href="https://github.com/Rennes-en-Resilience/Cartes-des-commerces-resilients">ce dépôt GitHub</a> sur <code>github.com/Rennes-en-Resilience/Cartes-des-commerces-resilients</code>.
+        N'hésitez pas à participer, à me faire part de votre avis, de vos suggestions etc !
+        Via ce formulaire <a target="_blank" href="https://github.com/Rennes-en-Resilience/Contactez-nous/" target="_blank">sur GitHub</a>, ou par email <code>Rennes.en.Resilience</code> <code>@</code> <code>LaPoste.net</code> ou <code>ProtonMail.com</code>.
+    </p>
+    <!-- <br> -->
+    <p class="text-left">
+        Bidouillé avec amour,
+        et un peu aussi par <a target="_blank" href="TalkAboutGlobalWarmingNow.png">peur du réchauffement climatique</a> (cf <a target="_blank" href="https://questionablecontent.net">QuestionableContent.net</a>),
+        par <span class="love">&hearts;</span> <a target="_blank" href="https://GitHub.com/Naereen/">Lilian Besson (Naereen)</a> <a target="_blank" href="https://github.com/Rennes-en-Resilience/Cartes-des-commerces-resilients/graphs/contributors">et d'autres</a>.
+    </p>
+    <!-- <br> -->
+    <p class="text-center">
+        Copyright © <a target="_blank" href="https://GitHub.com/Naereen/">Lilian Besson (Naereen)</a> et <a target="_blank" href="https://github.com/Rennes-en-Resilience/Cartes-des-commerces-resilients/graphs/contributors">autres contributeurs</a>, 2020, sous licence MIT.
+    </p>
+    <!-- <br> -->
+    <p class="text-right">
+        Je fonctionne selon <a target="_blank" href="https://wiki.lesswrong.com/wiki/Crocker's_rules">les règles de Crocker</a>, alors n'hésitez pas à parler franchement et simplement.
+        <br>
+        Les opinions sont les miennes : je ne parle pas au nom de mes employeurs, qu'ils soient passés, présents ou futurs.
+    </p>
+    <br>
+    <h3 class="LilianHandwrittingFont">
+        <blockquote class="blockquote text-right">
+            Que la force soit avec vous !
+            <br>
+            Merci de m ' avoir lu ! Signé , Lilian Besson - <a target="_blank" href="https://github.com/Naereen/">@Naereen</a>
+        </blockquote>
+    </h3>
+</footer>
+
 </body>
 <script type="text/javascript" src="https://besson.link/_static/ga.js"></script>
 <noscript><img style="visibility: hidden; display: none;" alt="GA|Analytics" src="https://ga-beacon.appspot.com/UA-38514290-1/carte-confinement/?pixel" /></noscript>
