@@ -322,15 +322,18 @@
                 createCircle(neighborhood, center,  250, 0.075, 'rgb(255, 200, 0)');
                 createCircle(neighborhood, center,  100, 0.075, 'rgb(255, 225, 0)');
                 createCircle(neighborhood, center,  50,  0.075, 'rgb(255, 255, 0)');
-                // TODO add data for other offices,
 
                 return neighborhood;
             };
 
-            // TODO this should be called whenever the lat/long is changed
-            list_of_functions_to_call_when_latlong_change.push(add_neighborhood);
             var center = [lat, long];
             var neighborhood = add_neighborhood(lat, long);
+            var update_neighborhood = function(lat, long) {
+                console.log("neighborhood.flyTo([", lat, ", ", long, "]);");  // DEBUG
+                neighborhood.flyTo([lat, long]);
+            };
+            // TODO this should be called whenever the lat/long is changed
+            list_of_functions_to_call_when_latlong_change.push(update_neighborhood);
         </script>
 
         <h2 class="text-warning" id="todo"><a href="#todo">
@@ -418,10 +421,14 @@
             return neighborhood_unzoomed;
         };
 
-        // TODO this should be called whenever the lat/long is changed
-        list_of_functions_to_call_when_latlong_change.push(add_neighborhood_unzoomed);
         var center = [lat, long];
         var neighborhood_unzoomed = add_neighborhood_unzoomed(lat, long);
+        var update_neighborhood_unzoomed = function(lat, long) {
+            console.log("neighborhood_unzoomed.flyTo([", lat, ", ", long, "]);");  // DEBUG
+            neighborhood_unzoomed.flyTo([lat, long]);
+        };
+        // TODO this should be called whenever the lat/long is changed
+        list_of_functions_to_call_when_latlong_change.push(update_neighborhood_unzoomed);
     </script>
 
     <br><hr><br>
@@ -463,11 +470,15 @@
             return whole_france;
         };
 
-        // TODO this should be called whenever the lat/long is changed
-        list_of_functions_to_call_when_latlong_change.push(add_whole_france);
         var center = [lat, long];
         var center_unzoomed = [lat, long];
         var whole_france = add_whole_france(lat, long);
+        var update_whole_france = function(lat, long) {
+            console.log("whole_france.flyTo([", lat, ", ", long, "]);");  // DEBUG
+            whole_france.flyTo([lat, long]);
+        };
+        // TODO this should be called whenever the lat/long is changed
+        list_of_functions_to_call_when_latlong_change.push(update_whole_france);
     </script>
 
     <!-- TODO finish adding extra data to this map? -->
@@ -519,16 +530,18 @@
                 </h4>
             </div>
             <div class="card-body">
-                <!-- <h4 class="card-title">
-                    Pour changer sa localisation
-                </h4> -->
                 <p class="card-text">
-                    Utiliser les deux glissières ci-dessous pour la <b>latitude (sud → nord)</b> et <b>longitude (ouest → est)</b>.
-                    <button type="submit" class="btn btn-primary offset-lg-1">Mettre à jour</button>
-                    <div id="add_link_to_reload"></div>
+                    Utilisez les deux glissières ci-dessous pour la <b>latitude (sud → nord)</b> et <b>longitude (ouest → est)</b>.
+                    <button class="btn btn-primary offset-lg-1" id="add_link_to_reload">
+                        <a href="#france?">
+                            Mettre à jour la page
+                        </a>
+                    </button>
                     <script type="text/javascript">
                         var add_link_to_reload = function(lat, long) {
-                            document.getElementById("add_link_to_reload").innerHTML = "<a href='#france?lat='" + lat + "?long=" + long + ">Recharger la page</a>";
+                            var innerHTML = "<a href='#france?lat=" + lat + "&long=" + long + "'>Mettre à jour la page</a>";
+                            console.log("DEBUG innerHTML for add_link_to_reload =", innerHTML);  // DEBUG
+                            document.getElementById("add_link_to_reload").innerHTML = innerHTML;
                         };
                         // TODO this should be called whenever the lat/long is changed
                         list_of_functions_to_call_when_latlong_change.push(add_link_to_reload);
@@ -543,14 +556,14 @@
                     <div class="row">
                         <div class="col-lg-4 offset-lg-1">
                             <label for="lat">
-                                Latitude = <span id="lat"> 48.11165 </span>
+                                Latitude = <span id="lat">48.11165</span>
                                 <br>(<code>min sud 41.30 → max nord 51.10</code>)
                             </label>
                             <input type="range" min="41.30" max="51.10" step="0.01" class="custom-range" value="48.11165" id="range_lat">
                         </div>
                         <div class="col-lg-4 offset-lg-1">
                             <label for="long">
-                                Longitude = <span id="long"> -1.65732 </span>
+                                Longitude = <span id="long">-1.65732</span>
                                 <br>(<code>min est -5.14 → max ouest 8.24</code>)
                             </label>
                             <input type="range" min="-5.14" max="8.24" step="0.01" class="custom-range" value="-1.65732" id="range_long">
@@ -562,20 +575,22 @@
                     document.getElementById("range_lat").addEventListener("change", function (evt) {
                         lat = this.value;
                         center[0] = lat;
+                        // console.log("DEBUG lat = ", lat);  // DEBUG
                         document.getElementById("lat").innerHTML = parseFloat(this.value);
                         for (let i = 0; i < list_of_functions_to_call_when_latlong_change.length; i++) {
                             var func = list_of_functions_to_call_when_latlong_change[i];
-                            console.log("DEBUG #1 Calling... func = ", func, " ...");  // DEBUG
+                            console.log("DEBUG #1 Calling... func #", i, " = ", func, " ...");  // DEBUG
                             func(lat, long);
                         };
                     });
                     document.getElementById("range_long").addEventListener("change", function (evt) {
                         long = this.value;
                         center[1] = long;
+                        // console.log("DEBUG long = ", long);  // DEBUG
                         document.getElementById("long").innerHTML = parseFloat(this.value);
                         for (let i = 0; i < list_of_functions_to_call_when_latlong_change.length; i++) {
                             var func = list_of_functions_to_call_when_latlong_change[i];
-                            console.log("DEBUG #2 Calling... func = ", func, " ...");  // DEBUG
+                            console.log("DEBUG #2 Calling... func #", i, " = ", func, " ...");  // DEBUG
                             func(lat, long);
                         };
                     });
