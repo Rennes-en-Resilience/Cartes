@@ -56,29 +56,6 @@
                         <a class="dropdown-item" href="?theme=night">Nuit</a>
                     </div>
                 </li>
-                <!-- <li class="nav-item">
-                    <fieldset>
-                        <div class="form-group">
-                            <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="switchNightMode" checked="">
-                                <br>
-                                <label class="custom-control-label" for="switchNightMode">Mode nuit ?</label>
-                                <script type="text/javascript">
-                                    // TODO add an event listener to this
-                                    var currentThemeIs = ("theme" in params) ? params["theme"] : "default";
-                                    document.getElementById("switchNightMode").addEventListener("change", function (evt) {
-                                        var isChecked = this.value;
-                                        var url = window.document.href;
-                                        window.document.href = url + "?theme=night";
-                                        // window.document.href = url + "?theme=default";
-                                        console.log("DEBUG switchNideMode was changed and now its value is =", isChecked, " and evt =", evt, " and this = ", this);
-                                        // document.getElementById("switchNightMode").innerHTML = parseFloat(this.value);
-                                    });
-                                </script>
-                            </div>
-                        </div>
-                    </fieldset>
-                </li> -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="cartes" aria-expanded="false">Liens internes<span class="caret"></span></a>
                     <div class="dropdown-menu" aria-labelledby="cartes">
@@ -325,17 +302,8 @@
                 */
 
                 // List of markers
-
                 // ------ #1 - My places : home, offices ------
                 var my_places = [];
-                /*
-                    my_home = L.marker(center);
-                    my_places.push(my_home)
-                    my_home.addTo(neighborhood);
-                    my_home.bindPopup("Dr Lilian Besson,<br>23, boulevard Jeanne d'Arc,<br>35000 - Rennes,<br>France.");
-                    my_home.openPopup();
-                */
-
                     my_home = L.marker(center);
                     my_places.push(my_home)
                     my_home.addTo(neighborhood);
@@ -349,7 +317,6 @@
                 createCircle(neighborhood, center,  250, 0.075, 'rgb(255, 200, 0)');
                 createCircle(neighborhood, center,  100, 0.075, 'rgb(255, 225, 0)');
                 createCircle(neighborhood, center,  50,  0.075, 'rgb(255, 255, 0)');
-                // TODO add data for other offices,
 
                 return neighborhood;
             };
@@ -431,7 +398,6 @@
                 my_home_unzoomed = L.marker(center_unzoomed);
                 my_places_unzoomed.push(my_home_unzoomed)
                 my_home_unzoomed.addTo(neighborhood_unzoomed);
-                // my_home_unzoomed.bindPopup("Dr Lilian Besson,<br>23, boulevard Jeanne d'Arc,<br>35000 - Rennes,<br>France.");
                 my_home_unzoomed.bindPopup("Centre de la carte (@" + lat + "," + long + ")<br>France.");
                 my_home_unzoomed.openPopup();
 
@@ -490,7 +456,6 @@
             my_home_whole = L.marker(center_whole);
             my_places_whole.push(my_home_whole)
             my_home_whole.addTo(whole_france);
-            // my_home_whole.bindPopup("Dr Lilian Besson,<br>23, boulevard Jeanne d'Arc,<br>35000 - Rennes,<br>France.");
             my_home_whole.bindPopup("Centre de la carte (@" + lat + "," + long + ")<br>France.");
             my_home_whole.openPopup();
 
@@ -545,28 +510,31 @@
                         </div>
                     </div>
                 </fieldset>
-                <script type="text/javascript">
-                    document.getElementById("range_lat").addEventListener("change", function (evt) {
-                        lat = this.value;
-                        center[0] = lat;
-                        document.getElementById("lat").innerHTML = parseFloat(this.value);
-                        for (let i = 0; i < list_of_functions_to_call_when_latlong_change.length; i++) {
-                            var func = list_of_functions_to_call_when_latlong_change[i];
-                            func(lat, long);
-                        };
-                    });
-                    document.getElementById("range_long").addEventListener("change", function (evt) {
-                        long = this.value;
-                        center[1] = long;
-                        document.getElementById("long").innerHTML = parseFloat(this.value);
-                        for (let i = 0; i < list_of_functions_to_call_when_latlong_change.length; i++) {
-                            var func = list_of_functions_to_call_when_latlong_change[i];
-                            func(lat, long);
-                        };
-                    });
-                </script>
-                </fieldset>
             </form>
+            <script type="text/javascript">
+                // event listener for latitude
+                var eventListener_range_lat = function (evt) {
+                    lat = this.value;
+                    center[0] = lat;
+                    document.getElementById("lat").innerHTML = parseFloat(this.value);
+                    for (let i = 0; i < list_of_functions_to_call_when_latlong_change.length; i++) {
+                        var func = list_of_functions_to_call_when_latlong_change[i];
+                        func(lat, long);
+                    };
+                };
+                document.getElementById("range_lat").addEventListener("change", eventListener_range_lat);
+                // event listener for longitude
+                var eventListener_range_long = function (evt) {
+                    long = this.value;
+                    center[1] = long;
+                    document.getElementById("long").innerHTML = parseFloat(this.value);
+                    for (let i = 0; i < list_of_functions_to_call_when_latlong_change.length; i++) {
+                        var func = list_of_functions_to_call_when_latlong_change[i];
+                        func(lat, long);
+                    };
+                };
+                document.getElementById("range_long").addEventListener("change", eventListener_range_long);
+            </script>
         </div>
     </div>
 </div>
@@ -607,7 +575,7 @@
     <p class="text-left">
         Ce document a été écrit par Lilian Besson et les membres de <a target="_blank" href="https://github.com/Rennes-en-Resilience/">@Rennes-en-Resilience</a>, en utilisant notamment <a target="_blank" href="https://leafletjs.com/">Leaflet.js</a>, <a target="_blank" href="https://www.openstreetmap.org/">OpenStreetMap</a>, et <a target="_blank" href="https://www.GitHub.com/">GitHub</a>.
         Ce projet est <a target="_blank" href="https://lbesson.mit-license.org/">libre et distribué sous licence, selon les conditions de la License MIT</a>,
-        et les sources sont disponibles dans <a target="_blank" href="https://github.com/Rennes-en-Resilience/Cartes-des-commerces-resilients">ce dépôt GitHub</a> sur <code>github.com/Rennes-en-Resilience/Cartes-des-commerces-resilients</code>.
+        et les sources sont disponibles dans <a target="_blank" href="https://github.com/Rennes-en-Resilience/Cartes">ce dépôt GitHub</a> sur <code>github.com/Rennes-en-Resilience/Cartes</code>.
         N'hésitez pas à participer, à me faire part de votre avis, de vos suggestions etc !
         Via ce formulaire <a target="_blank" href="https://github.com/Rennes-en-Resilience/Contactez-nous/" target="_blank">sur GitHub</a>, ou par email <code>Rennes.en.Resilience</code> <code>@</code> <code>LaPoste.net</code> ou <code>ProtonMail.com</code>.
     </p>
@@ -615,11 +583,11 @@
     <p class="text-left">
         Bidouillé avec amour,
         et un peu aussi par <a target="_blank" href="TalkAboutGlobalWarmingNow.png">peur du réchauffement climatique</a> (cf <a target="_blank" href="https://questionablecontent.net">QuestionableContent.net</a>),
-        par <span class="love">&hearts;</span> <a target="_blank" href="https://GitHub.com/Naereen/">Lilian Besson (Naereen)</a> <a target="_blank" href="https://github.com/Rennes-en-Resilience/Cartes-des-commerces-resilients/graphs/contributors">et d'autres</a>.
+        par <span class="love">&hearts;</span> <a target="_blank" href="https://GitHub.com/Naereen/">Lilian Besson (Naereen)</a> <a target="_blank" href="https://github.com/Rennes-en-Resilience/Cartes/graphs/contributors">et d'autres</a>.
     </p>
     <!-- <br> -->
     <p class="text-center">
-        Copyright © <a target="_blank" href="https://GitHub.com/Naereen/">Lilian Besson (Naereen)</a> et <a target="_blank" href="https://github.com/Rennes-en-Resilience/Cartes-des-commerces-resilients/graphs/contributors">autres contributeurs</a>, 2020, sous licence MIT.
+        Copyright © <a target="_blank" href="https://GitHub.com/Naereen/">Lilian Besson (Naereen)</a> et <a target="_blank" href="https://github.com/Rennes-en-Resilience/Cartes/graphs/contributors">autres contributeurs</a>, 2020, sous licence MIT.
     </p>
     <!-- <br> -->
     <p class="text-right">
