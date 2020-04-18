@@ -76,40 +76,36 @@
                 </li>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="cartes" aria-expanded="false">Déplacer les cartes ?<span class="caret"></span></a>
-                    <div class="dropdown-menu" aria-labelledby="cartes">
-                        <a class="dropdown-item" href="carte.html">
-                            <!-- TODO Lat -->
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="ranges" aria-expanded="false">Déplacer les cartes ?<span class="caret"></span></a>
+                    <div class="dropdown-menu" aria-labelledby="ranges">
+                        <!-- TODO Lat -->
+                        <div class="dropdown-item">
+                            <label for="lat2">
+                                Latitude = <span id="lat2">48.11165</span>
+                                <br>(<code>min sud 41.30 → max nord 51.10</code>)
+                            </label>
+                        </div>
+                        <div class="dropdown-item">
                             <form class="center">
                                 <fieldset class="form-group">
-                                    <div class="row">
-                                        <div class="col-lg-3 offset-lg-1">
-                                            <label for="lat2">
-                                                Latitude = <span id="lat2">48.11165</span>
-                                                <br>(<code>min sud 41.30 → max nord 51.10</code>)
-                                            </label>
-                                            <input type="range" min="41.30" max="51.10" step="0.01" class="custom-range" value="48.11165" id="range_lat2">
-                                        </div>
-                                    </div>
+                                    <input type="range" min="41.30" max="51.10" step="0.01" class="custom-range" value="48.11165" id="range_lat2">
                                 </fieldset>
                             </form>
-                        </a>
-                        <a class="dropdown-item" href="caresteouvert.html">
-                            <!-- TODO Long -->
+                        </div>
+                        <!-- TODO Long -->
+                        <div class="dropdown-item">
+                            <label for="long2">
+                                Longitude = <span id="long2">-1.65732</span>
+                                <br>(<code>min est -5.14 → max ouest 8.24</code>)
+                            </label>
+                        </div>
+                        <div class="dropdown-item">
                             <form class="center">
                                 <fieldset class="form-group">
-                                    <div class="row">
-                                        <div class="col-lg-3 offset-lg-1">
-                                            <label for="long2">
-                                                Longitude = <span id="long2">-1.65732</span>
-                                                <br>(<code>min est -5.14 → max ouest 8.24</code>)
-                                            </label>
-                                            <input type="range" min="-5.14" max="8.24" step="0.01" class="custom-range" value="-1.65732" id="range_long2">
-                                        </div>
-                                    </div>
+                                    <input type="range" min="-5.14" max="8.24" step="0.01" class="custom-range" value="-1.65732" id="range_long2">
                                 </fieldset>
                             </form>
-                        </a>
+                        </div>
                     </div>
                 </li>
                 <li class="nav-item">
@@ -623,7 +619,7 @@
                 var eventListener_range_lat = function (evt) {
                     lat = this.value;
                     center[0] = lat;
-                    // console.log("DEBUG lat = ", lat);  // DEBUG
+                    console.log("DEBUG lat = ", lat);  // DEBUG
                     document.getElementById("lat").innerHTML = parseFloat(this.value);
                     for (let i = 0; i < list_of_functions_to_call_when_latlong_change.length; i++) {
                         var func = list_of_functions_to_call_when_latlong_change[i];
@@ -637,7 +633,7 @@
                 var eventListener_range_long = function (evt) {
                     long = this.value;
                     center[1] = long;
-                    // console.log("DEBUG long = ", long);  // DEBUG
+                    console.log("DEBUG long = ", long);  // DEBUG
                     document.getElementById("long").innerHTML = parseFloat(this.value);
                     for (let i = 0; i < list_of_functions_to_call_when_latlong_change.length; i++) {
                         var func = list_of_functions_to_call_when_latlong_change[i];
