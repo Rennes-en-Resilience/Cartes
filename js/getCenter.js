@@ -30,7 +30,7 @@ var params = getParams(url);
 
 
 // Add a dark mode (with no cookie) ? #7
-// https://github.com/Rennes-en-Resilience/Cartes-des-commerces-resilients/issues/7
+// https://github.com/Rennes-en-Resilience/Cartes/issues/7
 
 if ("theme" in params) {
     // console.log("'theme' is in params, params['theme'] =", params["theme"]);

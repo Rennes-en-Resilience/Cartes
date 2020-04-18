@@ -44,14 +44,14 @@ Et pour utiliser la carte, elle est hébergée sur :
 
 ----
 
-## :scroll: Licence ? [![GitHub licence](https://img.shields.io/github/license/Rennes-en-Resilience/Cartes-des-commerces-resilients.svg)](https://github.com/Rennes-en-Resilience/Cartes/blob/master/LICENSE)
+## :scroll: Licence ? [![GitHub licence](https://img.shields.io/github/license/Rennes-en-Resilience/Cartes.svg)](https://github.com/Rennes-en-Resilience/Cartes/blob/master/LICENSE)
 Ce dépôt git et tous les fichiers contenus sont publiés librement sous les termes de la [Licence MIT](https://lbesson.mit-license.org/) (voir le fichier [LICENSE](LICENSE)).
 © [Lilian Besson](https://GitHub.com/Naereen) et d'autres collaborateurs et collaboratrices, 2020.
 
 [![Website perso.crans.org/besson/rennes-en-resilience](https://img.shields.io/website-up-down-green-red/http/perso.crans.org.svg)](https://perso.crans.org/besson/rennes-en-resilience/)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Rennes-en-Resilience/Cartes/graphs/commit-activity)
 [![Demandez moi n'importe quoi !](https://img.shields.io/badge/Demandez%20moi-n'%20importe%20quoi-1abc9c.svg)](https://GitHub.com/Naereen/ama.fr)
-[![GitHub licence](https://img.shields.io/github/license/Rennes-en-Resilience/Cartes-des-commerces-resilients.svg)](https://github.com/Rennes-en-Resilience/Cartes/blob/master/LICENSE)
+[![GitHub licence](https://img.shields.io/github/license/Rennes-en-Resilience/Cartes.svg)](https://github.com/Rennes-en-Resilience/Cartes/blob/master/LICENSE)
 [![Analytics](https://ga-beacon.appspot.com/UA-38514290-17/github.com/Rennes-en-Resilience/Cartes/README.md?pixel)](https://GitHub.com/Rennes-en-Resilience/Cartes/)
 [![ForTheBadge built-with-love](http://ForTheBadge.com/images/badges/built-with-love.svg)](https://GitHub.com/Naereen/)
 [![ForTheBadge uses-badges](http://ForTheBadge.com/images/badges/uses-badges.svg)](http://ForTheBadge.com)

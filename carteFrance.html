@@ -118,20 +118,6 @@
             /*
             */
 
-
-            // List of markers
-
-            // ------ #1 - My places : home, offices ------
-            /*
-            var my_places_unzoomed = [];
-                my_home_unzoomed = L.marker(center_unzoomed);
-                my_places_unzoomed.push(my_home_unzoomed)
-                my_home_unzoomed.addTo(whole_france);
-                // my_home_unzoomed.bindPopup("Dr Lilian Besson,<br>23, boulevard Jeanne d'Arc,<br>35000 - Rennes,<br>France.");
-                my_home_unzoomed.bindPopup("Centre de la carte (@" + lat + "," + long + ")<br>France.");
-                my_home_unzoomed.openPopup();
-            */
-
             createCircle(whole_france, center_unzoomed, 10000, 0.075, 'rgb(0, 255, 255)');
 
             return whole_france;
@@ -144,11 +130,9 @@
         var whole_france = add_whole_france(lat, long);
     </script>
 
-    <!-- TODO finish adding extra data to this map? -->
     <script type="text/javascript" src="js/beforeGettingBasesData.js"></script>
-
-    <script src="js/dataOffices.js"></script>
-    <script src="js/dataRebelBases.js"></script>
+    <script type="text/javascript" src="js/dataOffices.js"></script>
+    <script type="text/javascript" src="js/dataRebelBases.js"></script>
 
     <div id="button_add_rebel_icons">
         <script type="text/javascript">
@@ -214,7 +198,6 @@
                         </div>
                     </div>
                 </fieldset>
-                <!-- TODO these sliders work well but how to continuously update some piece of code, using their values. Cf. https://stackoverflow.com/a/26946264/ -->
                 <script type="text/javascript">
                     document.getElementById("range_lat").addEventListener("change", function (evt) {
                         lat = this.value;
@@ -359,7 +342,7 @@
     <p class="text-left">
         Ce document a été écrit par Lilian Besson et les membres de <a target="_blank" href="https://github.com/Rennes-en-Resilience/">@Rennes-en-Resilience</a>, en utilisant notamment <a target="_blank" href="https://leafletjs.com/">Leaflet.js</a>, <a target="_blank" href="https://www.openstreetmap.org/">OpenStreetMap</a>, et <a target="_blank" href="https://www.GitHub.com/">GitHub</a>.
         Ce projet est <a target="_blank" href="https://lbesson.mit-license.org/">libre et distribué sous licence, selon les conditions de la License MIT</a>,
-        et les sources sont disponibles dans <a target="_blank" href="https://github.com/Rennes-en-Resilience/Cartes-des-commerces-resilients">ce dépôt GitHub</a> sur <code>github.com/Rennes-en-Resilience/Cartes-des-commerces-resilients</code>.
+        et les sources sont disponibles dans <a target="_blank" href="https://github.com/Rennes-en-Resilience/Cartes">ce dépôt GitHub</a> sur <code>github.com/Rennes-en-Resilience/Cartes</code>.
         N'hésitez pas à participer, à me faire part de votre avis, de vos suggestions etc !
         Via ce formulaire <a target="_blank" href="https://github.com/Rennes-en-Resilience/Contactez-nous/" target="_blank">sur GitHub</a>, ou par email <code>Rennes.en.Resilience</code> <code>@</code> <code>LaPoste.net</code> ou <code>ProtonMail.com</code>.
     </p>
@@ -367,11 +350,11 @@
     <p class="text-left">
         Bidouillé avec amour,
         et un peu aussi par <a target="_blank" href="TalkAboutGlobalWarmingNow.png">peur du réchauffement climatique</a> (cf <a target="_blank" href="https://questionablecontent.net">QuestionableContent.net</a>),
-        par <span class="love">&hearts;</span> <a target="_blank" href="https://GitHub.com/Naereen/">Lilian Besson (Naereen)</a> <a target="_blank" href="https://github.com/Rennes-en-Resilience/Cartes-des-commerces-resilients/graphs/contributors">et d'autres</a>.
+        par <span class="love">&hearts;</span> <a target="_blank" href="https://GitHub.com/Naereen/">Lilian Besson (Naereen)</a> <a target="_blank" href="https://github.com/Rennes-en-Resilience/Cartes/graphs/contributors">et d'autres</a>.
     </p>
     <!-- <br> -->
     <p class="text-center">
-        Copyright © <a target="_blank" href="https://GitHub.com/Naereen/">Lilian Besson (Naereen)</a> et <a target="_blank" href="https://github.com/Rennes-en-Resilience/Cartes-des-commerces-resilients/graphs/contributors">autres contributeurs</a>, 2020, sous licence MIT.
+        Copyright © <a target="_blank" href="https://GitHub.com/Naereen/">Lilian Besson (Naereen)</a> et <a target="_blank" href="https://github.com/Rennes-en-Resilience/Cartes/graphs/contributors">autres contributeurs</a>, 2020, sous licence MIT.
     </p>
     <!-- <br> -->
     <p class="text-right">
