@@ -49,7 +49,6 @@
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="themes" aria-expanded="false">Thème ?<span class="caret"></span></a>
                     <div class="dropdown-menu" aria-labelledby="themes">
                         <a class="dropdown-item" href="?theme=day">Défaut</a>
-                        <!-- <div class="dropdown-divider"></div> -->
                         <a class="dropdown-item" href="?theme=night">Nuit</a>
                     </div>
                 </li>
@@ -76,7 +75,7 @@
                 </li>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="ranges" aria-expanded="false">Déplacer les cartes ?<span class="caret"></span></a>
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="ranges" aria-expanded="false">Déplacements ?<span class="caret"></span></a>
                     <div class="dropdown-menu" aria-labelledby="ranges">
                         <!-- TODO Lat -->
                         <div class="dropdown-item">
@@ -92,6 +91,7 @@
                                 </fieldset>
                             </form>
                         </div>
+                        <div class="dropdown-divider"></div>
                         <!-- TODO Long -->
                         <div class="dropdown-item">
                             <label for="long2">
@@ -112,7 +112,10 @@
                     <a class="nav-link" href="https://RennesenResilience.WordPress.com/">Blog</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../">Site principal ?</a>
+                    <a class="nav-link" href="../">Dossier</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://besson.link/">Site perso</a>
                 </li>
             </ul>
         </div>
@@ -545,9 +548,9 @@
                 return add_all_bases(rebel_bases);
             };
             var current_rebel_bases = [];
-            var delete_current_rebel_bases = function (rebel_bases) {
-                for (var i = 0; i < rebel_bases.length; i++) {
-                    rebel_bases[i].remove();
+            var delete_current_bases = function (bases) {
+                for (var i = 0; i < bases.length; i++) {
+                    bases[i].remove();
                 };
             };
             current_rebel_bases.push(add_random_rebel_base());
@@ -557,8 +560,8 @@
         </script>
         <p class="text-center">
             <button type="button" onclick="add_random_rebel_base();" class="btn btn-primary">Montre <b>une</b> base rebelle</button>
-            <button type="button" onclick="add_all_rebel_bases();" class="btn btn-warning">Montre <b>toutes les</b> bases rebelles</button>
-            <button type="button" onclick="delete_current_rebel_bases(current_rebel_bases);" class="btn btn-danger">Supprime les bases rebelle ?</button>
+            <button type="button" onclick="add_all_rebel_bases();" class="btn btn-info">Montre <b>toutes les</b> bases rebelles</button>
+            <button type="button" onclick="delete_current_bases(current_rebel_bases);" class="btn btn-danger">Supprime les bases rebelle ?</button>
         </p>
     </div>
 
@@ -617,10 +620,11 @@
             <script type="text/javascript">
                 // event listener for latitude
                 var eventListener_range_lat = function (evt) {
-                    lat = this.value;
+                    lat = parseFloat(this.value);
                     center[0] = lat;
                     console.log("DEBUG lat = ", lat);  // DEBUG
-                    document.getElementById("lat").innerHTML = parseFloat(this.value);
+                    document.getElementById("lat").innerHTML = lat;
+                    document.getElementById("lat2").innerHTML = lat;
                     for (let i = 0; i < list_of_functions_to_call_when_latlong_change.length; i++) {
                         var func = list_of_functions_to_call_when_latlong_change[i];
                         console.log("DEBUG #1 Calling... func #", i, " = ", func, " ...");  // DEBUG
@@ -631,10 +635,11 @@
                 document.getElementById("range_lat2").addEventListener("change", eventListener_range_lat);
                 // event listener for longitude
                 var eventListener_range_long = function (evt) {
-                    long = this.value;
+                    long = parseFloat(this.value);
                     center[1] = long;
                     console.log("DEBUG long = ", long);  // DEBUG
-                    document.getElementById("long").innerHTML = parseFloat(this.value);
+                    document.getElementById("long").innerHTML = long;
+                    document.getElementById("long2").innerHTML = long;
                     for (let i = 0; i < list_of_functions_to_call_when_latlong_change.length; i++) {
                         var func = list_of_functions_to_call_when_latlong_change[i];
                         console.log("DEBUG #2 Calling... func #", i, " = ", func, " ...");  // DEBUG
