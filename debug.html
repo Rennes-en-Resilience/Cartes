@@ -650,11 +650,9 @@
     </div>
 </div>
 
-
-
 <!--
     TODO? Use Web Share API https://web.dev/web-share/
-    See https://github.com/Rennes-en-Resilience/Cartes/issues/10
+    See https://github.com/Rennes-en-Resilience/Cartes-des-commerces-resilients/issues/10
 -->
 <div id="navigatorShare">
     <script type="text/javascript">
@@ -667,6 +665,62 @@
             .then(() => console.log("Successful share"))
             .catch((error) => console.log("Error sharing", error));
         };
+    </script>
+</div>
+
+<br><hr><br>
+
+<!-- TODO use geocoding to allow a user to type its address and get the map centered on its address.
+    Cf. https://github.com/Rennes-en-Resilience/Cartes-des-commerces-resilients/issues/9
+-->
+<div id="geocoding">
+    <h2 id="geocoding">
+        <a href="#geocoding">Géocoding <span class="alignright"><span class="badge badge-pill badge-secondary">¶</span></span></a>
+    </h2>
+
+    <form class="center">
+        <fieldset class="form-group">
+            <div class="row">
+                <div class="col-lg-4 offset-lg-1">
+                    <label for="input_address">Adresse :</label>
+                    <input class="form-control" id="input_address" type="textbox" value="Boulevard Jeanne d'Arc, 35000 Rennes" placeholder="Entrer votre adresse" aria-describedby="input_adressHelp">
+                    <small id="input_addressHelp" class="form-text text-muted">Entrer votre adresse (rien n'est stocké ni partagé à votre insu).</small>
+                </div>
+                <div class="col-lg-4 offset-lg-1">
+                    <!-- <label for="submit_geocode">Déplace la carte :</label> -->
+                    <button type="button" class="btn btn-success" id="submit_geocode" value="Geocode">
+                    Géocode</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+
+    <div id="test_address"></div>
+    <script>
+        function geocodeAddress(geocoder) {
+            var address = document.getElementById("input_address").value;
+            geocoder.geocode({
+                "address": address
+            }, function(results, status) {
+                if (status === "OK") {
+                    var latlng = results[0].geometry.location;
+                    console.log("Position trouvée :" + latlng);
+                    document.getElementById("test_address").innerHTML = "Position trouvée :" + latlng;
+                } else {
+                    alert("Geocode was not successful for the following reason: " + status);
+                }
+            });
+        };
+
+        function init_geocoder() {
+            var geocoder = new google.maps.Geocoder();
+
+            document.getElementById("submit_geocode").addEventListener("click", function() {
+                geocodeAddress(geocoder);
+            });
+        };
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQdJlnoDixi3SlzmzuuMiDKf6fYsgpBng&callback=init_geocoder">
     </script>
 </div>
 
