@@ -64,6 +64,7 @@
                             <a class="dropdown-item" href="#meteo">Météo</a>
                             <a class="dropdown-item" href="#1km">1 km</a>
                             <a class="dropdown-item" href="#10km">10 kms</a>
+                            <a class="dropdown-item" href="#100km">100 kms</a>
                             <a class="dropdown-item" href="#france">France</a>
                     </div>
                 </li>
@@ -74,6 +75,7 @@
                             <a class="dropdown-item" href="caresteouvert.html">CaResteOuvert</a>
                             <a class="dropdown-item" href="carte1km.html">1 km</a>
                             <a class="dropdown-item" href="carte10km.html">10 kms</a>
+                            <a class="dropdown-item" href="carte100km.html">100 kms</a>
                             <a class="dropdown-item" href="carteFrance.html">France</a>
                     </div>
                 </li>
@@ -453,8 +455,92 @@
     </script>
 
     <br><hr><br>
+
     <!-- XXX troisieme carte -->
     <div id="#troisiemecarte">
+        <h2>
+            <a id="100km" href="#100km">Carte à <i>cent kilomètres</i> autour de chez moi <span class="alignright"><span class="badge badge-pill badge-secondary">¶</span></span></a>
+        </h2>
+        Dans la troisieme carte, je colore donc en :
+        <ul>
+            <li><span style="color: rgb(255, 0, 255)">ce ton de rose</span> le cercle de rayon <b>100 km</b> ;</li>
+            <li><span style="color: rgb(200, 0, 255)">ce ton de violet</span> le cercle de rayon <b>80 km</b> ;</li>
+            <li><span style="color: rgb(150, 0, 255)">ce ton de violet</span> le cercle de rayon <b>60 km</b> ;</li>
+            <li><span style="color: rgb(100, 0, 255)">ce ton de violet foncé</span> le cercle de rayon <b>40 km</b> ;</li>
+            <li><span style="color: rgb(50, 0, 255)">ce ton de violet</span> le cercle de rayon <b>20 km</b> ;</li>
+            <li><span style="color: rgb(0, 0, 255)">ce ton de bleu foncé</span> le cercle de rayon <b>10 km</b>.</li>
+        </ul>
+
+        <div class="map" id="neighborhood_unzoomed_100"></div>
+    </div>
+
+    <script type="text/javascript">
+        var add_neighborhood_unzoomed_100 = function(lat, long) {
+            var center_unzoomed_100 = center;
+            var neighborhood_unzoomed_100 = L.map("neighborhood_unzoomed_100").setView(center_unzoomed_100, 8); // XXX 13 is zoom level
+
+            /*
+            L.tileLayer("https://{s}.tile.osm.org/{z}/{x}/{y}.png", {
+                attribution: "&copy; Lilian Besson for shops data etc, &copy; <a target="_blank" href='https://osm.org/copyright'>OpenStreetMap</a> contributors for the rest"
+            }).addTo(neighborhood_unzoomed_100);
+            */
+
+            /*
+            FIXED I now use my own access token for the MapBox API
+            */
+            L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibmFlcmVlbiIsImEiOiJjazh1M24zOW0wMTE5M2VwMzEycmRuNHEwIn0.qaOYJQNzdoi87pm3_BkwfA', {
+                maxZoom: 18,
+                attribution: 'Map data &copy; <a target="_blank" href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+                    '<a target="_blank" href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+                    'Imagery © <a target="_blank" href="https://www.mapbox.com/">Mapbox</a>',
+                id: 'mapbox/streets-v11',
+                tileSize: 512,
+                zoomOffset: -1
+            }).addTo(neighborhood_unzoomed_100);
+            /*
+            */
+
+            // List of markers
+            // ------ #1 - My places : home, offices ------
+            var my_places_unzoomed = [];
+                my_home_unzoomed = L.marker(center_unzoomed_100);
+                my_places_unzoomed.push(my_home_unzoomed)
+                my_home_unzoomed.addTo(neighborhood_unzoomed_100);
+                // my_home_unzoomed.bindPopup("Dr Lilian Besson,<br>23, boulevard Jeanne d'Arc,<br>35000 - Rennes,<br>France.");
+                my_home_unzoomed.bindPopup("Centre de la carte (@" + lat + "," + long + ")<br>France.");
+                my_home_unzoomed.openPopup();
+
+            createCircle(neighborhood_unzoomed_100, center_unzoomed_100, 100000, 0.075, 'rgb(255, 0, 255)');
+            createCircle(neighborhood_unzoomed_100, center_unzoomed_100,  80000, 0.075, 'rgb(200, 0, 255)');
+            createCircle(neighborhood_unzoomed_100, center_unzoomed_100,  60000, 0.075, 'rgb(150, 0, 255)');
+            createCircle(neighborhood_unzoomed_100, center_unzoomed_100,  40000, 0.075, 'rgb(100, 0, 255)');
+            createCircle(neighborhood_unzoomed_100, center_unzoomed_100,  20000, 0.075, 'rgb(50, 0, 255)');
+            createCircle(neighborhood_unzoomed_100, center_unzoomed_100,  10000, 0.075, 'rgb(0, 0, 255)');
+
+            return neighborhood_unzoomed_100;
+        };
+
+        var center_unzoomed_100 = [lat, long];
+        var neighborhood_unzoomed_100 = add_neighborhood_unzoomed_100(lat, long);
+        var update_neighborhood_unzoomed_100 = function(lat, long) {
+            var center_unzoomed_100 = [lat, long];
+            // console.log("neighborhood_unzoomed_100.flyTo([", lat, ", ", long, "]);");  // DEBUG
+            neighborhood_unzoomed_100.flyTo([lat, long]);
+            createCircle(neighborhood_unzoomed_100, center_unzoomed_100, 100000, 0.075, 'rgb(255, 0, 255)');
+            createCircle(neighborhood_unzoomed_100, center_unzoomed_100,  80000, 0.075, 'rgb(200, 0, 255)');
+            createCircle(neighborhood_unzoomed_100, center_unzoomed_100,  60000, 0.075, 'rgb(150, 0, 255)');
+            createCircle(neighborhood_unzoomed_100, center_unzoomed_100,  40000, 0.075, 'rgb(100, 0, 255)');
+            createCircle(neighborhood_unzoomed_100, center_unzoomed_100,  20000, 0.075, 'rgb(50, 0, 255)');
+            createCircle(neighborhood_unzoomed_100, center_unzoomed_100,  10000, 0.075, 'rgb(0, 0, 255)');
+        };
+        // TODO this should be called whenever the lat/long is changed
+        list_of_functions_to_call_when_latlong_change.push(update_neighborhood_unzoomed_100);
+    </script>
+
+    <br><hr><br>
+
+    <!-- XXX quatrieme carte -->
+    <div id="#quatriemecarte">
         <h2>
             <a id="france" href="#france">Carte <i>de toute la France</i><span class="alignright"><span class="badge badge-pill badge-secondary">¶</span></span></a>
         </h2>
@@ -463,8 +549,8 @@
 
     <script type="text/javascript">
         var add_whole_france = function(lat, long) {
-            var center_unzoomed = center;
-            var whole_france = L.map("whole_france").setView(center_unzoomed, 7); // XXX 13 is zoom level
+            var center_unzoomed_whole = center;
+            var whole_france = L.map("whole_france").setView(center_unzoomed_whole, 7); // XXX 13 is zoom level
             /*
             L.tileLayer("https://{s}.tile.osm.org/{z}/{x}/{y}.png", {
                 attribution: "&copy; Lilian Besson for shops data etc, &copy; <a target="_blank" href='https://osm.org/copyright'>OpenStreetMap</a> contributors for the rest"
@@ -494,7 +580,7 @@
             my_home_whole.bindPopup("Centre de la carte (@" + lat + "," + long + ")<br>France.");
             my_home_whole.openPopup();
 
-            createCircle(whole_france, center_unzoomed, 10000, 0.075, 'rgb(0, 255, 255)');
+            createCircle(whole_france, center_unzoomed_whole, 10000, 0.075, 'rgb(0, 255, 255)');
 
             return whole_france;
         };
